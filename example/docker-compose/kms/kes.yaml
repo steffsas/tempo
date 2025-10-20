@@ -1,0 +1,33 @@
+address: 0.0.0.0:7373
+
+root: root-identity
+admin:
+  identity: root-identity
+
+tls:
+  key: /etc/kes/certs/kes.key
+  cert: /etc/kes/certs/kes.crt
+  ca: /etc/kes/certs/ca.crt
+
+# insecure
+policy:
+  minio-policy:
+    allow:
+      - /*
+    identities:
+      # generate via kes-cli/kes identity minio/certs/minio.crt
+      - "404374bb275a69fb43a22bb912a23a389395b4913e768d6d4b575c2859e3e977"
+      - "minio-identity"
+      - "minio"
+
+identities:
+  - name: root-identity
+    type: static
+  - name: minio-identity
+    type: static
+  - name: minio
+    type: static
+
+keystore:
+  fs:
+    path: /etc/kes/keys
